@@ -1,8 +1,10 @@
 local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
 local highlightsEnabled = true  -- Default state: ON
+local uiVisible = true          -- UI visibility toggle
 
 -- Function to add or remove highlight
 local function toggleHighlight(player, enable)
@@ -117,6 +119,16 @@ toggleButton.MouseButton1Click:Connect(function()
     end
 
     applyHighlights(highlightsEnabled)
+end)
+
+-- Keybind to Toggle UI Visibility
+UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+    if not gameProcessedEvent then
+        if input.KeyCode == Enum.KeyCode.H then  -- Press "H" to toggle UI visibility
+            uiVisible = not uiVisible
+            frame.Visible = uiVisible
+        end
+    end
 end)
 
 -- Initial Highlight Application
